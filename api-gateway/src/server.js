@@ -3,10 +3,8 @@ const logger = require('./utils/logger');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
-// const { rateLimiterRedis, RateLimiterRedis } = require('rate-limiter-flexible');
 const Redis = require('ioredis');
 const { RedisStore } = require('rate-limit-redis');
-const routes = require('./routes/identity-service');
 const rateLimits = require('express-rate-limit');
 const errorHandler = require("./middleware/errorHandler");
 const proxy = require('express-http-proxy');
@@ -59,7 +57,7 @@ const proxyOptions = {
 }
 
 app.use('/v1/auth', proxy(process.env.IDENTITY_SERVICE_URL, {
-    ...proxy,
+    ...proxyOptions,
     proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
         proxyReqOpts.headers["content-type"] = "application/json";
         return proxyReqOpts;
