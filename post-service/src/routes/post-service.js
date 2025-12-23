@@ -1,6 +1,6 @@
 const express = require('express');
 const logger = require('../utils/logger');
-const { createPost, getAllPost, getPostByUser } = require('../controllers/post-controller');
+const { createPost, getAllPost, getPostByUser, getPostDetails } = require('../controllers/post-controller');
 const { authenticateRequest } = require('../middleware/authMiddleware');
 
 router = express.Router();
@@ -13,7 +13,7 @@ router.get('/all-posts', getAllPost);
 
 router.get('/posts-per-user', getPostByUser);
 
-// router.get('/post-details', getPostDetails);
+router.get('/:id', getPostDetails);
 
 // router.delete('/delete-post', deletePost);
 
